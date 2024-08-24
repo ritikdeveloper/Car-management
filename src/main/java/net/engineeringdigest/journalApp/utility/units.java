@@ -1,19 +1,22 @@
 package net.engineeringdigest.journalApp.utility;
 
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.stereotype.Component;
 
-@Component
+@Document(collection = "cars")
 public class units {
-
-    private  long id;
+    @Id
+    private ObjectId id;
     private String car;
     private String car_number;
 
-    public long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

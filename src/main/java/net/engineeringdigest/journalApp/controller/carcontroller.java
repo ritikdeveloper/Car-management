@@ -1,7 +1,9 @@
 package net.engineeringdigest.journalApp.controller;
 
 
+import net.engineeringdigest.journalApp.service.controllerservice;
 import net.engineeringdigest.journalApp.utility.units;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,36 +16,35 @@ import java.util.Map;
 public class carcontroller {
 
     @Autowired
-    units unit;
+    controllerservice service;
 
 
-     private Map<Long ,units> carsDetails = new HashMap();
 
     @GetMapping
     public List<units> getdetails(){
-        return new ArrayList<>(carsDetails.values());
+        return service.getdata();
     }
     @PostMapping
     public Boolean inputdetails(@RequestBody units myentry   ){
-        carsDetails.put(myentry.getId(),myentry);
-        return true;
 
+        service.saveEntry(myentry);
+        return true;
     }
 
     @DeleteMapping("/{id}")
-    public units  remove(@PathVariable long id){
-        return carsDetails.remove(id);
+    public void  remove(@PathVariable ObjectId id){
+         service.deleteEntry(id);
     }
 
     @GetMapping("/{id}")
-        public units getdetail(@PathVariable long id){
-            return carsDetails.get(id);
+        public units getdetail(@PathVariable ObjectId id){
+            return service.getDetails(id).orElse(null);
         }
 
     @PutMapping("/{id}")
-    public units changedetail(@PathVariable long id , @RequestBody units myentry){
+    public units changedetail(@PathVariable ObjectId id , @RequestBody units myentry){
 
-        return carsDetails.put(id,myentry);
+        return service.updateDetails(id,myentry);
     }
 
 
