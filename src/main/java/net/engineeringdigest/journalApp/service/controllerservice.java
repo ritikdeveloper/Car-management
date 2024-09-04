@@ -1,6 +1,6 @@
 package net.engineeringdigest.journalApp.service;
 
-import net.engineeringdigest.journalApp.utility.carsrepo;
+import net.engineeringdigest.journalApp.Repos.carsrepo;
 import net.engineeringdigest.journalApp.utility.units;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class controllerservice {
     }
 
 
-    public void saveEntry(units unit){
+    public void saveEntry(units unit,){
         repo.save(unit);
     }
     public void deleteEntry(ObjectId id){
